@@ -1,0 +1,12 @@
+<div class="media_files">
+    <% card.eligible_media_files(days_range).each do |media_file| %>
+        <div class="media_file <%= media_file.created_at.to_date === post.published_at.to_date ? 'on_day' : 'not_on_day' %>">
+
+            <label for="card_<%= index %>_media_file_<%= media_file.id %>">
+                <%= media_file_tag_for(media_file) %>
+            </label>
+
+            <input type="checkbox" id="card_<%= index %>_media_file_<%= media_file.id %>" name="cards[<%= index %>][media_files][]" value="<%= media_file.id %>">
+        </div>
+    <% end %>
+</div>

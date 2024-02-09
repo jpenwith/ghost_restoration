@@ -1,0 +1,32 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ body{max-width: 800px;margin: 0 auto;}
+ div.media_files{display:flex;flex-wrap: wrap;}
+ div.media_files div.media_file{border-radius: 10px;margin: 10px;}
+ div.media_files div.media_file.on_day{background-color: lightgreen;}
+ div.media_files div.media_file img{max-width:200px;max-height: 200px;margin: 10px;}
+ div.media_files div.media_file input{display:none;}
+
+ div.media_files div.media_file:has(input) { border: solid 3px white; }
+ div.media_files div.media_file:has(input):hover { border: dotted 3px red; }
+ div.media_files div.media_file:has(input:checked) { border: solid 3px red; }
+ div.media_files div.media_file:has(input:checked):hover { border: dotted 3px red; }
+ div.media_files div.media_file input{display:none;}
+
+
+ input[type='submit']{padding: 10px 20px;font-size: 1.5em;}
+ textarea{width:100%;min-height: 100px;}

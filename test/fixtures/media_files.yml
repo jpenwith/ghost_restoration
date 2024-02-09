@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  path: MyText
+  size: 1
+  digest: MyString
+  created_at: 2024-01-26
+  kind: MyString
+
+two:
+  path: MyText
+  size: 1
+  digest: MyString
+  created_at: 2024-01-26
+  kind: MyString

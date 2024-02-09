@@ -1,0 +1,65 @@
+<h1><%= @post.title %></h1>
+
+<h2><%= @post.published_at %></h2>
+
+<h3><%= @post.plaintext %></h3>
+
+<% if @post.restored_post.nil? %>
+
+    <form method="post" action="/posts/<%= @post.uuid %>/restore">
+        <textarea name="text"><%= @post.plaintext %></textarea>
+
+        <% @post.mobiledoc.cards.each_with_index do |card, index| %>
+            <% case card
+
+                when Ghost::Post::Mobiledoc::ImageCard %>
+                    <h4>1 image</h4>
+
+                    <%= render partial: "eligible_media_files", locals: { post: @post, card: card, index: index, days_range: @days_range } %>
+
+                <% when Ghost::Post::Mobiledoc::GalleryCard %>
+                    <h4><%= card.images.count %> images</h4>
+
+                    <%= render partial: "eligible_media_files", locals: { post: @post, card: card, index: index, days_range: @days_range } %>
+
+                <% when Ghost::Post::Mobiledoc::VideoCard %>
+                    <h4>1 video</h4>
+
+                    <%= render partial: "eligible_media_files", locals: { post: @post, card: card, index: index, days_range: @days_range } %>
+
+            <% end %>
+
+            <br /><hr /><br />
+
+        <% end %>
+
+        <input type="hidden" name="index_last_offset" value="<%= @index_last_offset %>" />
+
+        <input type="submit" value="Save" />
+
+    </form>
+
+    <br /><hr /><br />
+
+    <form method="get" action="/posts/<%= @post.uuid %>"
+        <label for="days_range">
+            Days
+        </label>
+        <input id="days_range" name="days_range" type="number" value="<%= @days_range %>" min="0" step="1">
+
+        <input type="hidden" name="index_last_offset" value="<%= @index_last_offset %>" />
+
+        <input type="submit" value="Go" />
+    </form>
+
+<% else %>
+    <% @post.restored_post.restored_post_cards.each do |restored_post_card| %>
+        <div class="media_files">
+            <% restored_post_card.media_files.each do |media_file| %>
+                <div class="media_file">
+                    <%= media_file_tag_for(media_file) %>
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+<% end %>
